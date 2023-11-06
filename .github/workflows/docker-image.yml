@@ -41,7 +41,7 @@ jobs:
           enable-AzPSSession: true
           
       - name: Configure Azure CLI
-        run: az configure --defaults acr={{ secrets.ACR_NAME}}
+        run: az configure --defaults acr={{ secrets.ACR_NAME }}
         
       - name: Configure Docker Environment
         uses: azure/docker-login@v1
