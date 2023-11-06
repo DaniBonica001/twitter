@@ -37,7 +37,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS}}
           
       - name: Configure Azure CLI
-        run: az configure --defaults acr=acrAndresMayor
+        run: az configure --defaults acr={{ secrets.ACR_NAME}}
         
       - name: Configure Docker Environment
         uses: azure/docker-login@v1
