@@ -62,15 +62,3 @@ jobs:
       - name: Push Image to ACR
         run: docker push ${{ secrets.LOGIN_SERVER}}/twitter:${{ github.sha }}
       
-      - name: kubectl-simple
-        uses: steebchen/kubectl@v2.1.1
-        with:
-          config: ${{ secrets.KUBECONFIG }} 
-          command: set image -n proyecto deployment/front front=acrandresmayor.azurecr.io/frontend:${{ github.sha }}
-          if: startsWith(github.ref, 'refs/heads/develop') || (github.event_name == 'pull_request' && github.base_ref == 'refs/heads/develop')
-      
-      - name: Deploy to Production
-        run: |
-          # Implement your production deployment steps here
-          # e.g., deployment scripts, notification, etc.
-        if: startsWith(github.ref, 'refs/heads/main') || (github.event_name == 'pull_request' && github.base_ref == 'refs/heads/main' && github.event.action == 'closed' && github.event.pull_request.merged == true)
