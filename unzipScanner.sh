@@ -16,4 +16,5 @@ export SONAR_SCANNER_OPTS="-server"
 
 echo "Versión de Sonar Scanner:"
 sonar-scanner -v
+# Execute Scanner
 sonar-scanner -Dsonar.projectKey=DevOpsIcesi_twitter_AYu3KfMA2MNOnXF35LF4 -Dsonar.sources=. -Dsonar.host.url=http://localhost:9000
