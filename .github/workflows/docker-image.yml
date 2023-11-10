@@ -45,7 +45,6 @@ jobs:
         run: |
           SONARQUBE_IP=$(docker inspect --format '{{ index .NetworkSettings.Networks.twitter_sonarnet.IPAddress}}' twitter_sonarqube_1)
           echo "SonarQube IP: $SONARQUBE_IP"
-          echo "::set-output name=sonarqube_ip::$SONARQUBE_IP"
 
       - name: Run Sonar Scanner
         run: |
