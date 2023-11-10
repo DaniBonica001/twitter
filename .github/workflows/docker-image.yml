@@ -41,9 +41,9 @@ jobs:
         if: github.ref == 'refs/heads/develop' || (github.event_name == 'pull_request' && github.base_ref == 'refs/heads/develop')
   
       - name: SonarQube Analysis
-        uses: sonarsource/sonar-scanner-cli
+        uses: sonarsource/sonarqube-scan-action@master
         with:
-          sonar-project-base-dir: ./
+          sonar-project-base-dir: ./pages
         env:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
             SONAR_HOST_URL: http://localhost:9000  
