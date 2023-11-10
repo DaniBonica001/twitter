@@ -30,13 +30,20 @@ jobs:
         if: github.ref == 'refs/heads/develop' || (github.event_name == 'pull_request' && github.base_ref == 'refs/heads/develop')
           
       - name: Docker compose up
-        run: docker-compose -f "docker-compose.yml" up -d --build
-
-      - name: SonarQube Scan
         run: |
-          chmod +x unzipScanner.sh
-          ./unzipScanner.sh
-        working-directory: ${{ github.workspace }}
+          docker-compose -f "docker-compose.yml" up -d --build
+          docker-compose ps         
+     
+
+      - name: Run Sonar Scanner
+        run: |
+          docker run \
+            --rm \
+            -e SONAR_HOST_URL="http://localhost:9000" \
+            -e SONAR_SCANNER_OPTS="-Dsonar.projectKey=DevOpsIcesi_twitter_AYu1lHUhPL4dF0_-KU3y" \
+            -e SONAR_TOKEN="sqp_b5d80fa7444ace2312e74ff122230b6476d12e81" \
+            -v "${{ github.workspace }}:/usr/src" \
+            sonarsource/sonar-scanner-cli
 
       - name: Set up Buildx
         uses: docker/setup-buildx-action@v3.0.0
