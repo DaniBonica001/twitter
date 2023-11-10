@@ -41,7 +41,7 @@ jobs:
       - name: Run SonarQube Scanner
         run: |
           chmod +x sonarScanner.sh
-          ./sonarScanner.sh
+          ./executeScanner.sh
         working-directory: ${{ github.workspace }}
 
       - name: Docker compose down
