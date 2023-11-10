@@ -40,7 +40,7 @@ jobs:
         
       - name: Run SonarQube Scanner
         run: |
-          chmod +x sonarScanner.sh
+          chmod +x executeScanner.sh
           ./executeScanner.sh
         working-directory: ${{ github.workspace }}
 
