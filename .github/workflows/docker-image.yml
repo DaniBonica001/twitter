@@ -28,17 +28,25 @@ jobs:
         run: npm test     
         if: github.ref == 'refs/heads/develop' || (github.event_name == 'pull_request' && github.base_ref == 'refs/heads/develop')
           
-      - name: Docker compose up        
-        uses: isbang/compose-action@v1.5.1
-        with:
-          compose-file: "docker-compose.yml"
-          down-flags: "--volumes"
-          
-      - name: SonarQube
-        uses: sonarsource/sonarqube-scan-action@master
+      - name: Start SonarQube Server
+        run: |
+          docker-compose -f docker-compose.yml up -d
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONARQUBE_JDBC_URL: jdbc:postgresql://db:5432/sonar
+          SONARQUBE_JDBC_USERNAME: sonar
+          SONARQUBE_JDBC_PASSWORD: sonar
+          
+      - name: Wait for SonarQube to Start
+        run: sleep 60
+        if: github.ref == 'refs/heads/develop' || (github.event_name == 'pull_request' && github.base_ref == 'refs/heads/develop')
+  
+      - name: SonarQube Analysis
+        uses: sonarsource/sonar-scanner-cli
+        with:
+          sonar-project-base-dir: ./
+        env:
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            SONAR_HOST_URL: http://localhost:9000  
 
       - name: Docker compose down
         run: docker-compose -f "docker-compose.yml" down
