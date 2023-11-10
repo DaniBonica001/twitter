@@ -13,3 +13,6 @@ export PATH=$SONAR_SCANNER_HOME/bin:$PATH
 
 # Set Sonar Scanner options
 export SONAR_SCANNER_OPTS="-server"
+
+echo "Versión de Sonar Scanner:"
+sonar-scanner -v
