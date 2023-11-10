@@ -68,6 +68,7 @@ jobs:
           docker build -t twitter-front .
           docker tag twitter ${{ secrets.LOGIN_SERVER}}/twitter:${{ github.sha }}
           
+          
       - name: Push Image to ACR
         run: docker push ${{ secrets.LOGIN_SERVER}}/twitter:${{ github.sha }}
       
