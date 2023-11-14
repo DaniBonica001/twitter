@@ -51,6 +51,7 @@ jobs:
         uses: Azure/login@v1.4.6
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+          enable-AzPSSession: true
       
       - name: Configure Azure CLI
         run: az configure --defaults acr=${{ secrets.ACR_NAME }}
