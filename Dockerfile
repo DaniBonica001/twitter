@@ -1,15 +1,29 @@
-FROM node:18
+# Build image
+FROM node:16.13-alpine as builder
+WORKDIR /app
 
-WORKDIR /frontend
+# Not sure if you will need this
+# RUN apk add --update openssl
 
 COPY package*.json ./
+RUN npm ci --quiet
 
-RUN npm install
-RUN npm install prisma --save-dev
-RUN npx prisma generate
+COPY ./prisma prisma
+COPY ./src src
+RUN npm run build
 
-COPY . .
+# Production image
 
-EXPOSE 3000
+FROM node:16.13-alpine
+WORKDIR /app
+ENV NODE_ENV production
 
-CMD npm run dev
+COPY package*.json ./
+RUN npm ci --only=production --quiet
+
+COPY --chown=node:node --from=builder /app/prisma /app/prisma
+COPY --chown=node:node --from=builder /app/src /app/src
+
+USER node
+
+EXPOSE 8080
