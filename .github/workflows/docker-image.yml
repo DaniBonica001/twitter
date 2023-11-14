@@ -41,24 +41,25 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    if: |
-      github.ref == 'refs/heads/develop' && github.event_name == 'pull_request' && github.base_ref == 'refs/heads/master' ||
-      github.ref == 'refs/heads/master' && (github.event_name == 'push' || github.event_name == 'pull_request') ||
-      github.ref == 'refs/heads/master' && github.event_name == 'push'
-
     steps:
 
-      - name: Install Azure CLI
-        run: curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-  
-      - name: Azure login
-        if: ${{ job.status == 'success' }}
-        uses: Azure/login@v1.4.6
+      - name: Checkout branch
+        uses: actions/checkout@v3
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          fetch-depth: 0
+
+      #- name: Install Azure CLI
+       # run: curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+  
+      #- name: Azure login
+       # if: ${{ job.status == 'success' }}
+        #uses: Azure/login@v1.4.6
+        #with:
+         # creds: ${{ secrets.AZURE_CREDENTIALS }}
+          #enable-AzPSSession: true
       
-      - name: Configure Azure CLI
-        run: az configure --defaults acr=${{ secrets.ACR_NAME }}
+      #- name: Configure Azure CLI
+       # run: az configure --defaults acr=${{ secrets.ACR_NAME }}
       
       - name: Configure Docker Environment
         uses: azure/docker-login@v1
@@ -69,7 +70,7 @@ jobs:
           
       - name: Build and Tag Docker Image
         run: |
-          docker build -t twitter-front .
+          docker build -t twitter .
           docker tag twitter ${{ secrets.LOGIN_SERVER }}/twitter:${{ github.sha }}
                   
       - name: Push Image to ACR
