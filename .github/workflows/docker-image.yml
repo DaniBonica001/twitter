@@ -43,18 +43,18 @@ jobs:
     needs: build
     steps:
 
-      - name: Install Azure CLI
-        run: curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+      #- name: Install Azure CLI
+       # run: curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
   
-      - name: Azure login
-        if: ${{ job.status == 'success' }}
-        uses: Azure/login@v1.4.6
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-          enable-AzPSSession: true
+      #- name: Azure login
+       # if: ${{ job.status == 'success' }}
+        #uses: Azure/login@v1.4.6
+        #with:
+         # creds: ${{ secrets.AZURE_CREDENTIALS }}
+          #enable-AzPSSession: true
       
-      - name: Configure Azure CLI
-        run: az configure --defaults acr=${{ secrets.ACR_NAME }}
+      #- name: Configure Azure CLI
+       # run: az configure --defaults acr=${{ secrets.ACR_NAME }}
       
       - name: Configure Docker Environment
         uses: azure/docker-login@v1
