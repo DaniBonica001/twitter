@@ -5,7 +5,8 @@ WORKDIR /frontend
 COPY package*.json ./
 
 RUN npm install
-RUN npx prisma generate
+RUN npm install prisma --save-dev
+RUN prisma generate
 
 COPY . .
 
