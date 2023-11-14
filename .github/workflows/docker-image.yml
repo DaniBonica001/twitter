@@ -43,6 +43,11 @@ jobs:
     needs: build
     steps:
 
+      - name: Checkout branch
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
       #- name: Install Azure CLI
        # run: curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
   
