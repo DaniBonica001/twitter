@@ -6,7 +6,7 @@ COPY package*.json ./
 
 RUN npm install
 RUN npm install prisma --save-dev
-RUN prisma generate
+RUN npx prisma generate
 
 COPY . .
 
