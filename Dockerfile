@@ -7,8 +7,7 @@ COPY . .
 
 RUN npm install
 RUN npm install prisma --save-dev
-RUN npx prisma init
-RUN npx prisma db push
+RUN npx prisma generate
 
 EXPOSE 3000
 
