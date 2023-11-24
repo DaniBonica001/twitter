@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev && npx prisma db push",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test":"jest"
+    "test": "jest"
   },
   "prisma": {
     "schema": "prisma/schema.prisma"
@@ -27,6 +27,7 @@
     "lodash": "^4.17.21",
     "next": "13.2.1",
     "next-auth": "^4.20.1",
+    "prisma": "^5.6.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-dropzone": "^14.2.3",
