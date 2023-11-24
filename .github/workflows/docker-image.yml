@@ -20,7 +20,7 @@
     #  - name: Checkout branch
      #   uses: actions/checkout@v3
       #  with:
-          fetch-depth: 0
+         # fetch-depth: 0
 
       #- name: Install Dependencies
        # run: npm i
@@ -61,6 +61,7 @@
           #username: ${{ secrets.ACR_USERNAME }}
           #password: ${{ secrets.ACR_PASSWORD }}
           
+
       #- name: Build and Tag Docker Image
        # run: |
         #  docker build -t twitter .
@@ -71,3 +72,4 @@
        # run: |
         #  docker push ${{ secrets.LOGIN_SERVER }}/twitter:latest
          # docker push ${{ secrets.LOGIN_SERVER }}/twitter:${{ github.sha }}
+
